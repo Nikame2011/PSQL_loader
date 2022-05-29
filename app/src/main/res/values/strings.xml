@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">test</string>
+    <string name="ButtonDBText">Обратиться к базе данных</string>
+    <string name="ButtonCloseText">Отменить</string>
+    <string name="ButtonSelectText">Принять</string>
+    <string name="TextViewConnectToDb">Для отображения информации обратитесь к базе данных и выберите запись.</string>
+    <string name="TextViewConnectionInProgress">Подключаемся к:</string>
+    <string name="TextViewConnectionSuccessful">Подключено к:</string>
+    <string name="TextViewConnectionFailed">Не удалось подключиться к:</string>
+</resources>
