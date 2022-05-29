@@ -80,13 +80,14 @@
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graphViewTableInfo"
         android:layout_width="match_parent"
-        android:layout_height="200dip"
+        android:layout_height="300dp"
         android:layout_marginTop="20dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/imageButtonChangeMode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTableName"
-        app:layout_constraintVertical_bias="0"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/imageButtonChangeMode"
@@ -99,6 +100,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_action_table" />
+        app:srcCompat="@drawable/ic_action_table"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

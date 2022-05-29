@@ -17,18 +17,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Bundle arguments=getIntent().getExtras();
         TextView rowInfoTV=findViewById(R.id.textViewRowInfo);
         if(arguments!=null) {
+            //если при переключении с DatabaseActivity была передана информация, выводим её на экран
             String[] row = (String[]) arguments.get("row");
             String[] name = (String[]) arguments.get("columns");
             String[] type = (String[]) arguments.get("type");
             StringBuilder summary= new StringBuilder();
             for(int column=0;column<name.length;column++){
-                summary.append(name[column]).append("(").append(type[column]).append("): ").append(row[column]).append("\n");
+                summary.append(name[column]).append("(").append(type[column]).append("): ")
+                        .append(row[column]).append("\n");
             }
-            rowInfoTV.setGravity(Gravity.START);
+            rowInfoTV.setGravity(Gravity.START);//устанавливаем выравнивание текста по левому краю
             rowInfoTV.setText(summary.toString());
         }
         else {
-            rowInfoTV.setGravity(Gravity.CENTER);
+            //при запуске приложения информация не передаётся, выводим стартовое сообщение
+            rowInfoTV.setGravity(Gravity.CENTER);//устанавливаем выравнивание текста по центру
             rowInfoTV.setText(R.string.TextViewConnectToDb);
         }
         Button dbConnectionB=findViewById(R.id.buttonDbConnection);
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.buttonDbConnection){
+            //если нажата кнопка, переходим в другую activity для подключения к базе данных
             Intent intent = new Intent(this, DatabaseActivity.class);
             startActivity(intent);
         }

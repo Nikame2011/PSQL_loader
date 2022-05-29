@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">test</string>
+    <string name="app_name">PSQL loader</string>
     <string name="ButtonDBText">Обратиться к базе данных</string>
     <string name="ButtonCloseText">Отменить</string>
     <string name="ButtonSelectText">Принять</string>

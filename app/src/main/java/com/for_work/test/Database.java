@@ -51,7 +51,6 @@ public class Database {
     public ArrayList<String[]> getTableRows(int tableNumber) {
         return tables.get(tableNumber).rows;
     }
-
     public String[] getColumnsNames(int tableNumber) {
         return tables.get(tableNumber).columnsName;
     }
@@ -61,7 +60,6 @@ public class Database {
     public int[] getTableDrawInfo(int tableNumber) {
         return tables.get(tableNumber).drawInfo;
     }
-
     public String getUser() {
         return user;
     }
@@ -77,35 +75,37 @@ public class Database {
         try
         {
             Connection connection = DriverManager.getConnection(url, user, pass);
-            Statement st = connection.createStatement();
+            //подключаемся к БД
+            Statement st = connection.createStatement();//объявляем объект для отправки SQL запросов
             ResultSet rs = st.executeQuery("SELECT * FROM INFORMATION_SCHEMA.TABLES");
-            //загружаем информацию о имеющихся таблицах
+            //загружаем информацию об имеющихся таблицах
             ArrayList<String> tables_name=new ArrayList<>();
             while(rs.next()) {
-                if (rs.getString(2).equals("public")){
-                    tables_name.add(rs.getString(3));//выбираем пользовательские таблицы
+                if (rs.getString(2).equals("public")){//выбираем пользовательские таблицы
+                    // и сохраняем названия
+                    tables_name.add(rs.getString(3));
                 }
             }
-            for (String name:tables_name){
+            for (String name:tables_name){//для всех пользовательских таблиц получаем метаданные
                 rs = st.executeQuery("SELECT * FROM "+name);
                 ResultSetMetaData mData = rs.getMetaData();
                 int columns = mData.getColumnCount();
                 String[] columnsName = new String[columns];
                 String[] columnsType = new String[columns];
                 for (int column=1;column<=columns;column++){
-                    columnsName[column-1]=mData.getColumnName(column);//сохраняем названия столбцов
-                    columnsType[column-1]=mData.getColumnTypeName(column);
-                    //isAutoIncrement
+                    columnsName[column-1]=mData.getColumnName(column); //получаем названия столбцов
+                    columnsType[column-1]=mData.getColumnTypeName(column); //получаем тип данных
                 }
                 ArrayList<String[]> rows=new ArrayList<>();
                 while (rs.next()) {
                     String[] row = new String[columns];
                     for (int column = 1; column <= columns; column++) {
-                        row[column - 1] = rs.getString(column);//сохраняем строки
+                        row[column - 1] = rs.getString(column);//получаем строки
                     }
                     rows.add(row);
                 }
-                tables.add(new Table(name,columnsName,columnsType,rows));
+                tables.add(new Table(name,columnsName,columnsType,rows));//сохраняем полученную
+                // информацию в виде объекта класса Table
             }
             rs.close();
             st.close();
@@ -120,10 +120,10 @@ public class Database {
     }
 
     private static class Table{
-        String tableName;
-        String[] columnsName;
-        String[] columnsDataType;
-        ArrayList<String[]> rows;
+        String tableName; //имя таблицы
+        String[] columnsName; //имена столбцов
+        String[] columnsDataType; //имена типов данных в столбцах
+        ArrayList<String[]> rows; //строки
 
         int[] drawInfo;
 
@@ -132,7 +132,9 @@ public class Database {
             this.columnsName=columnsName;
             this.columnsDataType=columnsDataType;
             this.rows=rows;
-            drawInfo=new int[]{-1,-1};
+            drawInfo=new int[]{-1,-1};//определяем, возможно ли графическое отображение
+                //за критерий принимаем наличие поля с типом bigserial для оси Х и поля с типом
+                //int4 для оси Y
             for(int column=0;column<columnsDataType.length;column++){
                 if(columnsDataType[column].equals("bigserial") & drawInfo[0]==-1){
                     drawInfo[0]=column;
@@ -142,7 +144,5 @@ public class Database {
                 }
             }
         }
-
-
     }
 }

@@ -15,6 +15,8 @@ public class SetUrlActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         Bundle arguments=getIntent().getExtras();
         String[] extra= (String[]) arguments.get("hostData");
+        //получаем параметры, считая, что запуск SetUrlActivity без передачи параметров невозможен.
+        //полученные параметры выводим на экран
         setContentView(R.layout.activity_set_url);
         EditText hostET=findViewById(R.id.editTextHost);
         hostET.setText(extra[0]);
@@ -35,7 +37,8 @@ public class SetUrlActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(this, DatabaseActivity.class);
-        if(view.getId()==R.id.buttonSelect){
+        if(view.getId()==R.id.buttonSelect){ //если нажата кнопка Принять, считываем с полей новые
+            //параметры и передаём их, запуская DatabaseActivity
             String[] extra=new String[6];
             EditText hostET=findViewById(R.id.editTextHost);
             extra[0]= String.valueOf(hostET.getText());
@@ -50,7 +53,8 @@ public class SetUrlActivity extends AppCompatActivity implements View.OnClickLis
             intent.putExtra("hostData",extra);
             startActivity(intent);
         }
-        else if(view.getId()==R.id.buttonClose){
+        else if(view.getId()==R.id.buttonClose){//если нажата кнопка Отмена, запускаем
+            //DatabaseActivity, не передавая параметров
             startActivity(intent);
         }
     }

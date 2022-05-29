@@ -18,18 +18,19 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder>{
         this.inflater = LayoutInflater.from(context);
         this.onClickListener=onClickListener;
     }
+
     @NonNull
     @Override
     public TableAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = inflater.inflate(R.layout.list_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(TableAdapter.ViewHolder holder, int position) {
-
-        String[] row = rows.get(holder.getAdapterPosition());
+        String[] row = rows.get(holder.getAdapterPosition()); //из списка строк получаем одну по
+        // полученному номеру и выводим на экран до четырёх её элементов,
+        // неиспользованные textView скрываем
         if (row.length>0)
         holder.firstView.setText(row[0]);
         if (row.length>1){
